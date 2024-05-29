@@ -11,16 +11,8 @@ app.use(cookieParser())
 
 // for cors requests. we can use cors() package or we can use "proxy".
 // app.use(cors({origin:process.env.CORS_ORIGIN}))
-const corsOptions = {
-    origin:'http://localhost:5173/', 
-   credentials:true,
-   optionSuccessStatus:200,
-};
 
-
-app.use(cors(corsOptions))
-
-app.use((req, res, next) => { res.header({"Access-Control-Allow-Origin": "http://localhost:5173/"}); next(); })
+app.use(cors())
 
 // to ensure that express understands json & to set limit for incoming json data.
 app.use(express.json({limit:"16kb"})) 
