@@ -46,20 +46,12 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 // for storing static assets,files,images etc. in our server.
 app.use(express.static("public"))
 
-const allowCorsForRoute2 = (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://blogsfordev.netlify.app');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-};
-
 // user routes
 import userRoutes from './routes/user.routes.js'
-app.use('/api/v1/user',allowCorsForRoute2, userRoutes)
+app.use('/api/v1/user', userRoutes)
 
 import blogRoutes from './routes/blog.routes.js'
-app.use('/api/v1/blogs',allowCorsForRoute2, blogRoutes)
+app.use('/api/v1/blogs', blogRoutes)
 
 
 export default app

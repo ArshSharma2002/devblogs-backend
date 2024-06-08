@@ -2,7 +2,6 @@ import app from './src/app.js'
 import dotenv from 'dotenv'
 import { connectDB } from './src/db/connectDB.js'
 
-
 dotenv.config()
 
 try {
