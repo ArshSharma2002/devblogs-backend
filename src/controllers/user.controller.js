@@ -102,12 +102,12 @@ const loginUser = async (req, res) => {
         const loggedInUser = await User.findById(verifyUser[0]._id).select("-password -refreshtoken")
 
         // options for cookies for security so, that only server can modify these cookies.
-        const options = {
-            httpOnly: true,
-            secure: true
-        }
+        // const options = {
+        //     httpOnly: true,
+        //     secure: true
+        // }
 
-        return res.status(200).cookie("accesstoken", accesstoken, options).cookie("refreshtoken", refreshtoken, options).json(
+        return res.status(200).cookie("accesstoken", accesstoken).cookie("refreshtoken", refreshtoken).json(
             new ApiResponse(200, {
                 user: loggedInUser,
                 accesstoken,
@@ -136,15 +136,15 @@ const logoutUser = async (req, res) => {
             }
         )
 
-        const options = {
-            httpOnly: true,
-            secure: true
-        }
+        // const options = {
+        //     httpOnly: true,
+        //     secure: true
+        // }
 
         return res
             .status(200)
-            .clearCookie("accesstoken", options)
-            .clearCookie("refreshtoken", options)
+            .clearCookie("accesstoken")
+            .clearCookie("refreshtoken")
             .json(new ApiResponse(200, {}, "User logged out Successfully !!!"))
 
     } catch (error) {
