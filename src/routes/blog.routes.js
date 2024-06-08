@@ -40,12 +40,21 @@ const upload = multer({ storage: storage })
 
 const router = express.Router()
 
-router.get('/', verifyJWT, getBlogs)
-router.get('/myblogs', verifyJWT, getMyBlogs)
-router.get('/:blogid', verifyJWT, getBlogById)
-router.post('/create', verifyJWT, upload.single('thumbnail'), createBlogs)
-router.put('/update/:blogid', verifyJWT, updateBlogById)
-router.delete('/delete/:blogid', verifyJWT, deleteBlogById)
+const allowCorsForRoute2 = (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://blogsfordev.netlify.app');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+};
+
+
+router.get('/',allowCorsForRoute2, verifyJWT, getBlogs)
+router.get('/myblogs',allowCorsForRoute2, verifyJWT, getMyBlogs)
+router.get('/:blogid',allowCorsForRoute2, verifyJWT, getBlogById)
+router.post('/create',allowCorsForRoute2, verifyJWT, upload.single('thumbnail'), createBlogs)
+router.put('/update/:blogid',allowCorsForRoute2, verifyJWT, updateBlogById)
+router.delete('/delete/:blogid',allowCorsForRoute2, verifyJWT, deleteBlogById)
 
 
 export default router

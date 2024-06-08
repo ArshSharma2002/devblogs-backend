@@ -24,11 +24,18 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+const allowCorsForRoute2 = (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://blogsfordev.netlify.app');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+};
 
 
-router.post('/register', registerUser)
-router.post('/login', loginUser)
-router.post('/logout', verifyJWT, logoutUser)
-router.get('/isloggedin', isLoggedIn)
+router.post('/register',allowCorsForRoute2, registerUser)
+router.post('/login',allowCorsForRoute2, loginUser)
+router.post('/logout',allowCorsForRoute2, verifyJWT, logoutUser)
+router.get('/isloggedin',allowCorsForRoute2, isLoggedIn)
 
 export default router
