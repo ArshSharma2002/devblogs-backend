@@ -2,6 +2,29 @@ import express from "express"
 import { createBlogs, deleteBlogById, getBlogById, getBlogs, updateBlogById, getMyBlogs } from "../controllers/blog.controller.js"
 import { verifyJWT } from '../middlewares/auth.middleware.js'
 import multer from 'multer'
+import cors from 'cors'
+const app = express()
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://blogsfordev.netlify.app'
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
+
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
