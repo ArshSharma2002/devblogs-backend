@@ -104,7 +104,8 @@ const loginUser = async (req, res) => {
         // options for cookies for security so, that only server can modify these cookies.
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: 'None', // Needed for cross-site cookies
         }
 
         return res.status(200).cookie("accesstoken", accesstoken, options).cookie("refreshtoken", refreshtoken, options).json(
@@ -138,7 +139,8 @@ const logoutUser = async (req, res) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: 'None', // Needed for cross-site cookies
         }
 
         return res
